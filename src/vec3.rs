@@ -1,25 +1,33 @@
-use std::ops::{Add, AddAssign, Div, Index, IndexMut, Mul, Neg, Sub};
 use std::fmt;
+use std::ops::{Add, AddAssign, Div, Index, IndexMut, Mul, Neg, Sub};
 
 #[derive(Clone, Copy, Debug, Default)]
 pub struct Vec3 {
-    vec: [f64; 3]
+    vec: [f64; 3],
 }
 
 impl Vec3 {
     #[inline]
     pub fn new(one: f64, two: f64, three: f64) -> Self {
-        Self { vec: [one, two, three] }
+        Self {
+            vec: [one, two, three],
+        }
     }
 
     #[inline]
-    pub fn x(&self) -> f64 { self.vec[0] }
+    pub fn x(&self) -> f64 {
+        self.vec[0]
+    }
 
     #[inline]
-    pub fn y(&self) -> f64 { self.vec[1] }
+    pub fn y(&self) -> f64 {
+        self.vec[1]
+    }
 
     #[inline]
-    pub fn z(&self) -> f64 { self.vec[2] }
+    pub fn z(&self) -> f64 {
+        self.vec[2]
+    }
 
     #[inline]
     pub fn length(&self) -> f64 {
@@ -28,24 +36,20 @@ impl Vec3 {
 
     #[inline]
     pub fn length_squared(&self) -> f64 {
-        self.vec[0] * self.vec[0] +
-        self.vec[1] * self.vec[1] +
-        self.vec[2] * self.vec[2]
+        self.vec[0] * self.vec[0] + self.vec[1] * self.vec[1] + self.vec[2] * self.vec[2]
     }
 
     #[inline]
     pub fn dot(&self, other: &Vec3) -> f64 {
-        self.vec[0] * other.vec[0] +
-        self.vec[1] * other.vec[1] +
-        self.vec[2] * other.vec[2]
+        self.vec[0] * other.vec[0] + self.vec[1] * other.vec[1] + self.vec[2] * other.vec[2]
     }
 
-    [inline]
+    #[inline]
     pub fn cross(&self, other: &Vec3) -> Vec3 {
         Vec3::new(
             self.vec[1] * other.vec[2] - self.vec[2] * other.vec[1],
             self.vec[2] * other.vec[0] - self.vec[0] * other.vec[2],
-            self.vec[0] * other.vec[1] - self.vec[1] * other.vec[0]
+            self.vec[0] * other.vec[1] - self.vec[1] * other.vec[0],
         )
     }
 
@@ -57,10 +61,9 @@ impl Vec3 {
 
 pub type Point3 = Vec3; // we're basically just making nalgebra atp
 
-
 impl Index<usize> for Vec3 {
     type Output = f64;
-    
+
     #[inline]
     fn index(&self, idx: usize) -> &Self::Output {
         &self.vec[idx]
@@ -76,7 +79,7 @@ impl IndexMut<usize> for Vec3 {
 
 impl Neg for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn neg(self) -> Self::Output {
         Vec3::new(-self.vec[0], -self.vec[1], -self.vec[2])
@@ -85,13 +88,13 @@ impl Neg for Vec3 {
 
 impl Add for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn add(self, other: Vec3) -> Self::Output {
         Vec3::new(
             self.vec[0] + other.vec[0],
             self.vec[1] + other.vec[1],
-            self.vec[2] + other.vec[2]
+            self.vec[2] + other.vec[2],
         )
     }
 }
@@ -107,33 +110,33 @@ impl AddAssign for Vec3 {
 
 impl Sub for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn sub(self, other: Vec3) -> Self::Output {
         Vec3::new(
             self.vec[0] - other.vec[0],
             self.vec[1] - other.vec[1],
-            self.vec[2] - other.vec[2]
+            self.vec[2] - other.vec[2],
         )
     }
 }
 
 impl Mul<Vec3> for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn mul(self, other: Vec3) -> Self::Output {
         Vec3::new(
             self.vec[0] * other.vec[0],
             self.vec[1] * other.vec[1],
-            self.vec[2] * other.vec[2]
+            self.vec[2] * other.vec[2],
         )
     }
 }
 
 impl Mul<f64> for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn mul(self, t: f64) -> Self::Output {
         Vec3::new(self.vec[0] * t, self.vec[1] * t, self.vec[2] * t)
@@ -142,7 +145,7 @@ impl Mul<f64> for Vec3 {
 
 impl Mul<Vec3> for f64 {
     type Output = Vec3;
-    
+
     #[inline]
     fn mul(self, v: Vec3) -> Self::Output {
         v * self
@@ -151,7 +154,7 @@ impl Mul<Vec3> for f64 {
 
 impl Div<f64> for Vec3 {
     type Output = Vec3;
-    
+
     #[inline]
     fn div(self, t: f64) -> Self::Output {
         let k = 1.0 / t;
