@@ -13,6 +13,13 @@ impl Ray3 {
         }
     }
 
+    pub fn empty_new() -> Self {
+        Self {
+            origin: Point3::new(0.0, 0.0, 0.0),
+            direction: Point3::new(0.0, 0.0, 0.0)
+        }
+    }
+
     pub fn at(&self, t: f64) -> Point3 {
         self.origin + t * self.direction
     }
